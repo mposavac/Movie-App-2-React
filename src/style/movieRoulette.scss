@@ -1,10 +1,189 @@
+@import "./definitions.scss";
+
 .roulette-screen {
   z-index: 150;
   position: fixed;
-  width: 40%;
+  width: 50%;
   height: 80vh;
-  background: white;
+  background: color(primary);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: "Lato", sans-serif !important;
+  h2 {
+    display: block;
+    text-align: center;
+  }
+  h2,
+  i {
+    color: color(secondary);
+  }
+  p {
+    color: color(radioBorder);
+    margin: 0.5rem 0 0 2rem;
+  }
+  i {
+    font-size: 1.7rem;
+    margin: 0.75rem 0 0 0.75rem;
+    cursor: pointer;
+    transition: 0.25s;
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+  ul {
+    columns: 2;
+    li {
+      list-style-type: none;
+    }
+    label {
+      padding-left: 2rem;
+      font-size: 1.1rem;
+      display: block;
+      cursor: pointer;
+      margin: 1rem 0;
+      input {
+        display: none;
+        & + span {
+          color: color(radioBorder);
+          line-height: $radioSize + 2;
+          height: $radioSize + 2;
+          padding-left: $radioSize + 10;
+          display: block;
+          position: relative;
+          transition: 0.3s;
+          &::before,
+          &::after {
+            content: " ";
+            width: $radioSize;
+            height: $radioSize;
+            display: block;
+            border-radius: 50%;
+            left: 0;
+            top: 0;
+            position: absolute;
+          }
+          &::before {
+            background: color(radioBorder);
+            transition: background 0.2s ease,
+              transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+          }
+          &::after {
+            background: #fff;
+            transform: scale(0.8);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+          }
+        }
+
+        &:checked + span {
+          color: color(secondary);
+          &::before {
+            transform: scale(1.05);
+            background: color(secondary);
+          }
+          &::after {
+            transform: scale(0.6);
+            transition: transform 0.3s ease;
+          }
+        }
+      }
+      &:hover {
+        input {
+          & + span {
+            &::before {
+              transform: scale(0.9);
+            }
+            &::after {
+              transform: scale(0.75);
+            }
+          }
+          &:checked + span {
+            &::after {
+              transform: scale(0.6);
+            }
+          }
+          &:not(:checked) + span {
+            color: rgba(color(secondary), 0.5);
+          }
+        }
+      }
+    }
+  }
+
+  .roll-btn {
+    display: block;
+    margin: 2rem auto;
+    background: color(primary);
+    color: color(thirdColor);
+    box-shadow: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 1px solid color(thirdColor);
+    transition: 0.25s;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0.5rem 0.5rem -0.4rem color(secondary);
+      transform: translateY(-0.25rem);
+      border-color: color(secondary);
+      color: color(secondary);
+    }
+  }
+
+  span.border-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    box-sizing: border-box;
+    &:nth-child(1) {
+      width: 100%;
+      transform: rotate(0deg);
+    }
+    &:nth-child(2) {
+      height: 100%;
+      width: 80vh;
+      left: calc(100% - 2px);
+      transform: rotate(-90deg);
+    }
+    &:nth-child(3) {
+      width: 100%;
+      top: 100%;
+      transform: rotate(180deg);
+    }
+    &:nth-child(4) {
+      height: 100%;
+      width: 80vh;
+      transform: rotate(90deg) translateY(calc(100% - 2px));
+    }
+    &::before {
+      content: " ";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: color(secondary);
+      animation: borderanim 4s linear infinite;
+    }
+  }
+}
+
+@keyframes borderanim {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50.1% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 }

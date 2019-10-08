@@ -42,33 +42,41 @@ export class MovieRoulette extends Component {
   render() {
     return (
       <div className="roulette-screen">
+        <span className="border-animation"></span>
+        <span className="border-animation"></span>
+        <span className="border-animation"></span>
+        <span className="border-animation"></span>
         <i
           onClick={this.props.handleMovieRoulette}
           className="fas fa-times"
         ></i>
-        <h3>Movie Roulette</h3>
+        <h2>Movie Roulette</h2>
         <p>Select genre:</p>
+
         {this.state.genres ? (
-          this.state.genres.map(element => (
-            <React.Fragment>
-              <input
-                type="radio"
-                name="genre"
-                value={element.id}
-                id="radio-btn"
-                onChange={this.handleGenreChange}
-                key={element.id}
-              />
-              {element.name}
-              <br />
-            </React.Fragment>
-          ))
+          <ul>
+            {this.state.genres.map(element => (
+              <li>
+                <label>
+                  <input
+                    type="radio"
+                    name="genre"
+                    value={element.id}
+                    id="radio-btn"
+                    onChange={this.handleGenreChange}
+                    key={element.id}
+                  />
+                  <span>{element.name}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
         ) : (
           <Loading height={"100%"} />
         )}
         {this.state.genres && (
           <button onClick={this.handleRandomMovie} className="roll-btn">
-            Roll
+            ROLL
           </button>
         )}
         {this.state.randomMovie && (

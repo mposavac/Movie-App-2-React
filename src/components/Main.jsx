@@ -43,7 +43,17 @@ export class main extends Component {
     return (
       <main>
         {!this.state.movieList.length > 0 && <Loading height={"100vh"} />}
-        <div className="container-grid">
+        <div
+          className="container-grid"
+          style={
+            this.state.movieRouletteOpen
+              ? {
+                  overflow: "hidden",
+                  transform: "scale(0.2)"
+                }
+              : null
+          }
+        >
           {this.state.movieList.length > 0 &&
             this.state.movieList.map(element => {
               return element.map(movie => {
@@ -51,10 +61,30 @@ export class main extends Component {
               });
             })}
         </div>
-        <button className="load-btn btn" onClick={this.handleLoadMore}>
+        <button
+          style={
+            this.state.movieRouletteOpen
+              ? {
+                  opacity: "0"
+                }
+              : null
+          }
+          className="load-btn btn"
+          onClick={this.handleLoadMore}
+        >
           LOAD
         </button>
-        <button className="random-btn btn" onClick={this.handleMovieRoulette}>
+        <button
+          style={
+            this.state.movieRouletteOpen
+              ? {
+                  opacity: "0"
+                }
+              : null
+          }
+          className="random-btn btn"
+          onClick={this.handleMovieRoulette}
+        >
           <i className="fas fa-random"></i>
         </button>
         {this.state.movieRouletteOpen && (

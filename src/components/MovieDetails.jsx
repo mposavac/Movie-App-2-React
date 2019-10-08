@@ -60,59 +60,80 @@ export class MovieDetails extends Component {
       );
     }
     return (
-      <div className="movie-details">
-        {!this.state.movie && this.state.isLoading && (
-          <Loading height="100vh" />
-        )}
-        {this.state.movie ? (
-          <React.Fragment>
-            <h1 className="title">
-              {this.state.movie.title}{" "}
-              <span>({this.state.movie.release_date.slice(0, 4)})</span>
-            </h1>
-            <div className="backdrop-container">
-              <div className="img-container">
-                <img
-                  src={
-                    "https://image.tmdb.org/t/p/original" +
-                    this.state.movie.backdrop_path
-                  }
-                  onLoad={this.imgLoaded}
-                  alt="NoImg"
-                />
+      <React.Fragment>
+        <div
+          className="movie-details"
+          style={
+            this.state.movieRouletteOpen
+              ? {
+                  overflow: "hidden",
+                  transform: "scale(0)"
+                }
+              : null
+          }
+        >
+          {!this.state.movie && this.state.isLoading && (
+            <Loading height="100vh" />
+          )}
+          {this.state.movie ? (
+            <React.Fragment>
+              <h1 className="title">
+                {this.state.movie.title}{" "}
+                <span>({this.state.movie.release_date.slice(0, 4)})</span>
+              </h1>
+              <div className="backdrop-container">
+                <div className="img-container">
+                  <img
+                    src={
+                      "https://image.tmdb.org/t/p/original" +
+                      this.state.movie.backdrop_path
+                    }
+                    onLoad={this.imgLoaded}
+                    alt="NoImg"
+                  />
+                </div>
+                <div className="overview">
+                  <p
+                    style={
+                      this.state.movieRouletteOpen ? { opacity: "0" } : null
+                    }
+                  >
+                    {this.state.movie.overview}
+                  </p>
+                </div>
               </div>
-              <div className="overview">
-                <p>{this.state.movie.overview}</p>
-              </div>
-            </div>
-            <div className="star-rating">{ratingStars}</div>
-            <p>
-              <span>Rating:</span> {this.state.movie.vote_average}
-            </p>
-            <p>
-              <span>Popularity:</span> {this.state.movie.popularity}
-            </p>
-            <p>
-              <span>Language:</span> {this.state.movie.original_language}
-            </p>
-            <p>
-              <span>Production companies:</span>{" "}
-              {this.state.movie.production_companies
-                .map(element => element.name)
-                .join(", ")}
-            </p>
-            <button
-              className="random-btn btn"
-              onClick={this.handleMovieRoulette}
-            >
-              <i className="fas fa-random"></i>
-            </button>
-          </React.Fragment>
-        ) : (
-          <Loading />
+              <div className="star-rating">{ratingStars}</div>
+              <p>
+                <span>Rating:</span> {this.state.movie.vote_average}
+              </p>
+              <p>
+                <span>Popularity:</span> {this.state.movie.popularity}
+              </p>
+              <p>
+                <span>Language:</span> {this.state.movie.original_language}
+              </p>
+              <p>
+                {" "}
+                <span>Production companies:</span>{" "}
+                {this.state.movie.production_companies
+                  .map(element => element.name)
+                  .join(", ")}
+              </p>
+              <button
+                className="random-btn btn"
+                onClick={this.handleMovieRoulette}
+              >
+                <i className="fas fa-random"></i>
+              </button>
+            </React.Fragment>
+          ) : (
+            <Loading />
+          )}
+        </div>
+        {this.state.movieRouletteOpen && (
+          <MovieRoulette handleMovieRoulette={this.handleMovieRoulette} />
         )}
-        {this.state.movieRouletteOpen && <MovieRoulette />}
-      </div>
+      </React.Fragment>
     );
   }
 }

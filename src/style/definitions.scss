@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 $colors: (
   primary: #272727,
-  secondary: #ffe400
+  secondary: #ffe400,
+  radioBorder: #d1d7e3,
+  thirdColor: #ff652f
 );
+
+$radioSize: 22px;
 
 @function color($color-name) {
   @return map-get($colors, $color-name);

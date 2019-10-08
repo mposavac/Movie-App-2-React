@@ -3,6 +3,7 @@
   width: 80%;
   margin: auto;
   font-family: "Lato", sans-serif !important;
+  transition: transform 0.7s;
   .title {
     color: color(primary);
     margin: 1rem 0;
@@ -31,6 +32,7 @@
       bottom: 0;
       left: 0;
       width: 50%;
+      min-width: 50%;
       z-index: 10;
       p {
         width: 100%;
@@ -38,26 +40,27 @@
         font-size: 1.2rem;
         //border: 1px solid color(primary);
         background: #fff;
+        transition: 0.15s;
       }
       &::after,
       &::before {
-        /*NAPRAVITI BORDER*/
         position: absolute;
         content: " ";
-        height: 130%;
         width: 130%;
         bottom: -18px;
         z-index: -1;
       }
       &::after {
-        clip-path: polygon(14% 0, 100% 0%, 86% 100%, 0% 100%);
-        background: rgba(255, 0, 247, 0.6);
-        left: -70px;
+        clip-path: polygon(9% 0, 100% 15%, 90% 90%, 0% 100%);
+        background: rgba(color(primary), 0.7);
+        left: -65px;
+        height: 133%;
       }
       &::before {
         left: -100px;
-        background: rgba(255, 255, 0, 0.6);
-        clip-path: polygon(0 0, 86% 0, 100% 100%, 14% 100%);
+        height: 140%;
+        background: rgba(color(secondary), 0.4);
+        clip-path: polygon(0 0, 86% 8%, 100% 100%, 14% 100%);
       }
     }
   }
