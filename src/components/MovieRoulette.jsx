@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { Transition, animated } from "react-spring/renderprops";
 
 import Loading from "./Loading";
-
 import "../style/movieRoulette.scss";
 
 export class MovieRoulette extends Component {
@@ -41,48 +41,64 @@ export class MovieRoulette extends Component {
 
   render() {
     return (
-      <div className="roulette-screen">
-        <span className="border-animation"></span>
-        <span className="border-animation"></span>
-        <span className="border-animation"></span>
-        <span className="border-animation"></span>
-        <i
-          onClick={this.props.handleMovieRoulette}
-          className="fas fa-times"
-        ></i>
-        <h2>Movie Roulette</h2>
-        <p>Select genre:</p>
+      <Transition
+        native
+        config={{ duration: 250 }}
+        items={this.props.movieRouletteOpen}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+      >
+        {show =>
+          show &&
+          (props => (
+            <animated.div style={props}>
+              <div className="roulette-screen">
+                <span className="border-animation"></span>
+                <span className="border-animation"></span>
+                <span className="border-animation"></span>
+                <span className="border-animation"></span>
+                <i
+                  onClick={this.props.handleMovieRoulette}
+                  className="fas fa-times"
+                ></i>
+                <h2>Movie Roulette</h2>
+                <p>Select genre:</p>
 
-        {this.state.genres ? (
-          <ul>
-            {this.state.genres.map(element => (
-              <li>
-                <label>
-                  <input
-                    type="radio"
-                    name="genre"
-                    value={element.id}
-                    id="radio-btn"
-                    onChange={this.handleGenreChange}
-                    key={element.id}
-                  />
-                  <span>{element.name}</span>
-                </label>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <Loading height={"100%"} />
-        )}
-        {this.state.genres && (
-          <button onClick={this.handleRandomMovie} className="roll-btn">
-            ROLL
-          </button>
-        )}
-        {this.state.randomMovie && (
-          <Redirect to={"/movie/" + this.state.randomMovie.id} />
-        )}
-      </div>
+                {this.state.genres ? (
+                  <ul>
+                    {this.state.genres.map(element => (
+                      <li>
+                        <label>
+                          <input
+                            type="radio"
+                            name="genre"
+                            value={element.id}
+                            id="radio-btn"
+                            onChange={this.handleGenreChange}
+                            key={element.id}
+                          />
+                          <span>{element.name}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Loading height={"100%"} />
+                )}
+                {this.state.genres && (
+                  <button onClick={this.handleRandomMovie} className="roll-btn">
+                    ROLL
+                  </button>
+                )}
+                {this.state.randomMovie && (
+                  <Redirect to={"/movie/" + this.state.randomMovie.id} />
+                )}
+              </div>
+            </animated.div>
+          ))
+        }
+      </Transition>
     );
   }
 }

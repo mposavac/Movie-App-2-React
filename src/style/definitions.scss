@@ -12,7 +12,7 @@ $radioSize: 22px;
   @return map-get($colors, $color-name);
 }
 
-$desktop: 1210px;
+//$desktop: 1210px;
 $tablet: 850px;
 $mobile: 480px;
 
@@ -47,7 +47,13 @@ $mobile: 480px;
   height: 50px;
   margin-bottom: 2rem;
   transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
   &:hover {
     border: 3px solid color(secondary);
+  }
+  @include mobile {
+    margin-top: 1rem;
+    width: 40px;
+    height: 40px;
   }
 }

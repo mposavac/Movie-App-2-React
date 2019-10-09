@@ -43,7 +43,7 @@ main {
           height: auto;
           border-radius: 15px 30px 15px 15px;
           @include mobile {
-            border-radius: 15px 65px 0px 0px;
+            border-radius: 15px 0 0 0;
           }
         }
         .rating-container {
@@ -85,6 +85,9 @@ main {
   }
   .load-btn {
     margin-left: 50%;
+    @include tablet {
+      margin-left: 2rem;
+    }
   }
   .random-btn {
     float: right;

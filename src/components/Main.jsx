@@ -87,9 +87,10 @@ export class main extends Component {
         >
           <i className="fas fa-random"></i>
         </button>
-        {this.state.movieRouletteOpen && (
-          <MovieRoulette handleMovieRoulette={this.handleMovieRoulette} />
-        )}
+        <MovieRoulette
+          movieRouletteOpen={this.state.movieRouletteOpen}
+          handleMovieRoulette={this.handleMovieRoulette}
+        />
       </main>
     );
   }

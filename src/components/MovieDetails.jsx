@@ -130,9 +130,10 @@ export class MovieDetails extends Component {
             <Loading />
           )}
         </div>
-        {this.state.movieRouletteOpen && (
-          <MovieRoulette handleMovieRoulette={this.handleMovieRoulette} />
-        )}
+        <MovieRoulette
+          movieRouletteOpen={this.state.movieRouletteOpen}
+          handleMovieRoulette={this.handleMovieRoulette}
+        />
       </React.Fragment>
     );
   }
