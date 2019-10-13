@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Loading from "./Loading";
 
 import MovieRoulette from "./MovieRoulette";
+import language from "../languages.json";
 
 import "../style/movieDetails.scss";
 
@@ -9,7 +10,9 @@ export class MovieDetails extends Component {
   state = {
     movie: undefined,
     isLoading: true,
-    movieRouletteOpen: false
+    movieRouletteOpen: false,
+    rating: 0,
+    isRated: false
   };
   componentDidMount() {
     this.fetchData();
@@ -26,18 +29,20 @@ export class MovieDetails extends Component {
   }
   fetchData = () => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=5c9b7f26ee7ebb9e910bf1ec551bf09b&language=en-US`
+      `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
     )
       .then(res => res.json())
       .then(data => {
-        this.setState({ movie: data, movieRouletteOpen: false });
+        this.setState({
+          movie: data,
+          movieRouletteOpen: false,
+          isRated: false,
+          rating: Math.round(data.vote_average)
+        });
       });
   };
   handleFillStar = event => {
-    /* let ratingStars = [];
-    for (let i = 0; i < event.target.id; i++) {
-      ratingStars.push(<i class="fas fa-star" />);
-    }*/
+    this.setState({ rating: parseInt(event.target.value), isRated: true });
   };
   imgLoaded = () => {
     this.setState({ isLoading: false });
@@ -47,16 +52,30 @@ export class MovieDetails extends Component {
   };
 
   render() {
-    console.log(this.state.movie);
+    let lang;
+    if (this.state.movie) {
+      lang = language.filter(element => {
+        return element.language === this.state.movie.original_language;
+      });
+    }
+    console.log(this.state);
     const ratingStars = [];
     for (let i = 0; i < 10; i++) {
       ratingStars.push(
-        <i
-          onMouseEnter={this.handleFillStar}
-          key={i}
-          className="far fa-star"
-          id={i + 1}
-        />
+        <React.Fragment key={i}>
+          <label className="rating-label" htmlFor={"rating-" + (i + 1)}>
+            <i className="far fa-star" />
+          </label>
+          <input
+            className="rating-input"
+            name="rating"
+            id={"rating-" + (i + 1)}
+            value={i + 1}
+            type="radio"
+            onChange={this.handleFillStar}
+            checked={this.state.rating === i + 1}
+          />
+        </React.Fragment>
       );
     }
     return (
@@ -72,10 +91,9 @@ export class MovieDetails extends Component {
               : null
           }
         >
-          {!this.state.movie && this.state.isLoading && (
-            <Loading height="100vh" />
-          )}
-          {this.state.movie ? (
+          <Loading height="100vh" isLoading={this.state.isLoading} />
+
+          {this.state.movie && (
             <React.Fragment>
               <h1 className="title">
                 {this.state.movie.title}{" "}
@@ -102,17 +120,28 @@ export class MovieDetails extends Component {
                   </p>
                 </div>
               </div>
-              <div className="star-rating">{ratingStars}</div>
+              <div
+                className={
+                  this.state.isRated ? "star-rating rated" : "star-rating"
+                }
+              >
+                {ratingStars}
+              </div>
               <p>
                 <span>Rating:</span> {this.state.movie.vote_average}
               </p>
               <p>
                 <span>Popularity:</span> {this.state.movie.popularity}
               </p>
-              <p>
-                <span>Language:</span> {this.state.movie.original_language}
-              </p>
-              <p>
+              <div className="language">
+                <span>Language:</span>{" "}
+                {lang[0] ? (
+                  <img src={lang[0].flag} alt="noimg" />
+                ) : (
+                  this.state.movie.original_language
+                )}
+              </div>
+              <p className="production">
                 {" "}
                 <span>Production companies:</span>{" "}
                 {this.state.movie.production_companies
@@ -126,8 +155,6 @@ export class MovieDetails extends Component {
                 <i className="fas fa-random"></i>
               </button>
             </React.Fragment>
-          ) : (
-            <Loading />
           )}
         </div>
         <MovieRoulette

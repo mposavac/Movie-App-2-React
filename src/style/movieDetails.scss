@@ -24,6 +24,10 @@
     max-height: 770px;
     min-height: 300px;
     margin-bottom: 2rem;
+    z-index: -1;
+    @include tablet {
+      max-height: unset;
+    }
     .img-container {
       overflow: hidden;
       width: 100%;
@@ -37,7 +41,8 @@
       img {
         max-width: 100%;
         min-width: 100%;
-        @include mobile {
+
+        @include tablet {
           height: 100%;
           max-width: unset;
         }
@@ -51,15 +56,23 @@
       width: 50%;
       min-width: 50%;
       z-index: 10;
+      padding: 0.25rem;
       @include tablet {
         width: 80%;
+        position: initial;
       }
       @include mobile {
-        position: initial;
-        width: calc(100% - 4px);
+        width: calc(100% - 0.5rem);
         margin: auto;
-        border: 2px color(secondary) solid;
         color: color(secondary);
+        padding: 0.25rem;
+        background: repeating-linear-gradient(
+          -45deg,
+          color(secondary),
+          color(secondary) 1px,
+          color(primary) 1px,
+          color(primary) 5px
+        );
       }
       p {
         padding: 0.5rem;
@@ -68,6 +81,7 @@
         transition: 0.15s;
         @include mobile {
           font-size: 1rem;
+          padding: 0.7rem;
           background: color(primary);
         }
       }
@@ -100,25 +114,88 @@
     }
   }
   .star-rating {
+    position: relative;
     float: right;
     margin: -1rem 1.5rem 0 0;
-    @include mobile {
-      margin: auto;
+    display: inline-flex;
+
+    @include tablet {
+      float: unset;
+      margin: auto 0.5rem;
+      text-align: center;
+      display: block;
     }
-    i {
-      font-size: 1.5rem;
-      margin-right: 5px;
-      @include mobile {
-        font-size: 1.1rem;
+
+    .rating-label {
+      cursor: pointer;
+      padding: 0 0.1rem;
+
+      i {
+        font-size: 1.5rem;
+        margin-right: 5px;
+        pointer-events: none;
+        color: orange;
+        transition: 0.3s;
+        @include mobile {
+          font-size: 1.1rem;
+        }
       }
     }
   }
-  p {
-    padding: 0.25rem;
-    span {
-      font-weight: bold;
+
+  .rating-input {
+    position: absolute !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+    &:checked ~ .rating-label i {
+      color: #ddd;
     }
   }
+
+  .star-rating.rated .rating-input:checked ~ .rating-label i {
+    color: #ddd;
+  }
+  .star-rating:hover .rating-label i,
+  .star-rating.rated .rating-label i {
+    color: orange;
+    font-weight: 900;
+  }
+
+  .rating-input:hover ~ .rating-label i {
+    color: #ddd;
+    font-weight: 400;
+  }
+
+  p,
+  .language {
+    padding: 0.75rem 0.25rem;
+    span {
+      position: relative;
+      font-weight: bold;
+      padding: 0.75rem 0.5rem 0.75rem 0;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        background: color(secondary);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+      }
+    }
+    img {
+      position: absolute;
+      transform: translateY(-5px);
+      padding-left: 0.5rem;
+    }
+  }
+  .production {
+    @include tablet {
+      line-height: 30px;
+    }
+  }
+
   .random-btn {
     float: right;
     margin-right: 2rem;

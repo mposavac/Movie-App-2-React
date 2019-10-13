@@ -3,6 +3,9 @@
 main {
   padding-top: 1rem;
   overflow-x: hidden;
+  background: url("../triangle-mosaic.png") repeat center/cover;
+  background-color: linear-gradient(to bottom, color(primary), transparent);
+  background-attachment: fixed;
   .container-grid {
     justify-items: center;
     width: 85%;
@@ -29,19 +32,39 @@ main {
     .movie-card {
       position: relative;
       max-width: 300px;
+      opacity: 0;
       border: 1px solid color(primary);
+      background: #fff;
       border-radius: 15px 0 15px 15px;
-
+      animation: fadeIn 0.5s ease-in-out forwards;
+      @for $i from 1 through 14 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.08}s;
+        }
+      }
       .poster-container {
         position: relative;
-        padding: 10px;
+        transition: 0.2s;
+        &:hover {
+          opacity: 0.8;
+        }
         @include mobile {
           padding: 0;
+        }
+        &::after {
+          position: absolute;
+          content: " ";
+          bottom: 0;
+          right: 0;
+          height: 100px;
+          background: linear-gradient(to top, #fff 2%, transparent 65%);
+          width: 100%;
+          transition: 0.35s;
         }
         img {
           width: 100%;
           height: auto;
-          border-radius: 15px 30px 15px 15px;
+          border-radius: 15px 30px 0 0;
           @include mobile {
             border-radius: 15px 0 0 0;
           }
@@ -95,5 +118,17 @@ main {
     i {
       font-size: 1.5rem;
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }

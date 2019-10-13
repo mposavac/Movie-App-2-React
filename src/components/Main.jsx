@@ -22,8 +22,9 @@ export class main extends Component {
 
   fetchData = () => {
     fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=5c9b7f26ee7ebb9e910bf1ec551bf09b&language=en-US&page=${this
-        .state.page + 1}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${
+        process.env.REACT_APP_TMDB_API_KEY
+      }&language=en-US&page=${this.state.page + 1}`
     )
       .then(res => res.json())
       .then(data => {
@@ -39,10 +40,12 @@ export class main extends Component {
   };
 
   render() {
-    console.log(this.state.page);
     return (
       <main>
-        {!this.state.movieList.length > 0 && <Loading height={"100vh"} />}
+        <Loading
+          height={"100vh"}
+          isLoading={!this.state.movieList.length > 0}
+        />
         <div
           className="container-grid"
           style={

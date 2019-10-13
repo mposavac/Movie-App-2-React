@@ -24,7 +24,9 @@ export class MovieRoulette extends Component {
 
   handleRandomMovie = () => {
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=5c9b7f26ee7ebb9e910bf1ec551bf09b&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=
+      `https://api.themoviedb.org/3/discover/movie?api_key=${
+        process.env.REACT_APP_TMDB_API_KEY
+      }&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=
       ${Math.floor(Math.random() * 50 + 1)}&with_genres=${this.state.genreId}`
     )
       .then(res => res.json())
@@ -43,9 +45,9 @@ export class MovieRoulette extends Component {
     return (
       <Transition
         native
-        config={{ duration: 250 }}
+        config={{ duration: 350 }}
         items={this.props.movieRouletteOpen}
-        from={{ opacity: 0 }}
+        from={{ opacity: 1 }}
         enter={{ opacity: 1 }}
         leave={{ opacity: 0 }}
       >
@@ -58,17 +60,21 @@ export class MovieRoulette extends Component {
                 <span className="border-animation"></span>
                 <span className="border-animation"></span>
                 <span className="border-animation"></span>
-                <i
+                <div
+                  className="close-container"
                   onClick={this.props.handleMovieRoulette}
-                  className="fas fa-times"
-                ></i>
+                >
+                  <div className="left"></div>
+                  <div className="right"></div>
+                </div>
+
                 <h2>Movie Roulette</h2>
                 <p>Select genre:</p>
 
                 {this.state.genres ? (
                   <ul>
                     {this.state.genres.map(element => (
-                      <li>
+                      <li key={element.id}>
                         <label>
                           <input
                             type="radio"
@@ -76,7 +82,6 @@ export class MovieRoulette extends Component {
                             value={element.id}
                             id="radio-btn"
                             onChange={this.handleGenreChange}
-                            key={element.id}
                           />
                           <span>{element.name}</span>
                         </label>
