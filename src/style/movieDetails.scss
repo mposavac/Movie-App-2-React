@@ -4,18 +4,29 @@
   margin: auto;
   font-family: "Lato", sans-serif !important;
   transition: transform 0.7s;
+  transform: translateY(-39px);
   @include tablet {
     width: 100%;
+    transform: unset;
+  }
+  @include mobile {
   }
   .title {
-    color: color(primary);
-    margin: 1rem 0;
+    color: color(secondary);
+    margin: auto;
+    text-align: center;
+    transform: translateY(-0.67rem);
+
     @include tablet {
-      margin: 1rem 1rem;
-      font-size: 1.3rem;
+      position: absolute;
+      font-size: 1.1rem;
+      top: 2rem;
+      left: 50%;
+      width: 68%;
+      transform: translate(-50%, -50%);
     }
     span {
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
   }
   .backdrop-container {
@@ -27,6 +38,7 @@
     z-index: -1;
     @include tablet {
       max-height: unset;
+      overflow: hidden;
     }
     .img-container {
       overflow: hidden;

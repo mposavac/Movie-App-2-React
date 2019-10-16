@@ -1,10 +1,71 @@
 @import "./definitions.scss";
 
+header {
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  font-family: "Lato", sans-serif !important;
+  text-align: center;
+  height: 4rem;
+  width: 100%;
+  z-index: 0;
+  background: linear-gradient(
+    to right,
+    color(primary) 65%,
+    rgba(color(primary), 0.9)
+  );
+  div {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    height: 4rem;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 0;
+    transition: 0.3s;
+    img {
+      z-index: 10;
+      height: 100%;
+      filter: invert(73%) sepia(99%) saturate(453%) hue-rotate(356deg)
+        brightness(105%) contrast(107%);
+      transition: 0.3s;
+      @include mobile {
+        transform: rotateY(-180deg) scale(0.75);
+      }
+    }
+    &.logo-container {
+      animation: playAnimationLogo 2s ease forwards;
+      animation-delay: 3s;
+      left: 50%;
+    }
+  }
+  p {
+    display: inline-block;
+    color: #ddd;
+    vertical-align: top;
+    line-height: 4rem;
+    z-index: 0;
+    transition: 0.3s;
+    visibility: hidden;
+    transform: translate(-2rem);
+    width: 0%;
+    &.header-title {
+      animation: playAnimationTitle 1s ease forwards;
+      animation-delay: 3s;
+    }
+  }
+  &:hover {
+    .logo-container {
+      img {
+        transform: rotateY(-180deg);
+      }
+    }
+  }
+}
+
 main {
   padding-top: 1rem;
   overflow-x: hidden;
-  background: url("../triangle-mosaic.png") repeat center/cover;
-  background-color: linear-gradient(to bottom, color(primary), transparent);
+  background: url("../triangle-mosaic.png") repeat;
   background-attachment: fixed;
   .container-grid {
     justify-items: center;
@@ -64,10 +125,7 @@ main {
         img {
           width: 100%;
           height: auto;
-          border-radius: 15px 30px 0 0;
-          @include mobile {
-            border-radius: 15px 0 0 0;
-          }
+          border-radius: 15px 0 0 0;
         }
         .rating-container {
           position: absolute;
@@ -95,14 +153,17 @@ main {
         padding-left: 10px;
         color: color(primary);
         @include mobile {
-          font-size: 1rem;
+          font-size: 0.9rem;
         }
         span {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
         }
       }
       .language {
         padding: 5px 0 10px 10px;
+        @include mobile {
+          font-size: 0.75rem;
+        }
       }
     }
   }
@@ -130,5 +191,46 @@ main {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes playAnimationTitle {
+  0% {
+    width: 0;
+    visibility: visible;
+    transform: translate(-3rem);
+  }
+  1% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+    visibility: visible;
+    transform: translate(0rem);
+  }
+}
+@keyframes playAnimationLogo {
+  0% {
+    background: color(primary);
+    left: calc(50% - 12rem + 8rem - 32px);
+    padding: 0 0 0 12rem;
+    transform: translateX(-50%) rotateY(0deg);
+  }
+  50% {
+    left: 40%;
+    padding: 0 0 0 4rem;
+    transform: translateX(-50%) rotateY(0deg);
+  }
+  75% {
+    left: 40%;
+    transform: translateX(-50%) rotateY(-180deg);
+  }
+  82% {
+    transform: translateX(-50%) rotateY(-180deg);
+    background: color(primary);
+  }
+  100% {
+    left: 10%;
+    transform: translateX(-50%) rotateY(0deg);
   }
 }

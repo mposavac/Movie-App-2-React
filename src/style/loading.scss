@@ -1,12 +1,13 @@
 @import "./definitions.scss";
 .loading {
-  width: 100%;
+  width: 125%;
   height: 150vh;
   background: #fff;
   position: absolute;
   z-index: 150000;
   right: 0;
   top: 0;
+  transform: translate(10%, -4rem);
   transition: 0.5s;
   .sk-circle {
     margin: auto;

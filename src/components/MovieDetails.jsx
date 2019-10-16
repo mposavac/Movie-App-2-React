@@ -15,6 +15,7 @@ export class MovieDetails extends Component {
     isRated: false
   };
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.fetchData();
   }
   componentDidUpdate() {
@@ -54,6 +55,7 @@ export class MovieDetails extends Component {
   render() {
     let lang;
     if (this.state.movie) {
+      document.title = this.state.movie.title;
       lang = language.filter(element => {
         return element.language === this.state.movie.original_language;
       });
