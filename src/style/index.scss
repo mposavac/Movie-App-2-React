@@ -65,8 +65,11 @@ header {
 main {
   padding-top: 1rem;
   overflow-x: hidden;
-  background: url("../triangle-mosaic.png") repeat;
+  background: url("../triangle-mosaic.png") repeat center/cover;
   background-attachment: fixed;
+  @include mobile {
+    background: url("../triangle-mosaic.png") repeat;
+  }
   .container-grid {
     justify-items: center;
     width: 85%;
