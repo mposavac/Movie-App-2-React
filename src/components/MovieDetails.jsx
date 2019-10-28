@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import Loading from "./Loading";
+import React, { Component } from 'react';
+import Loading from './Loading';
 
-import MovieRoulette from "./MovieRoulette";
-import language from "../languages.json";
+import MovieRoulette from './MovieRoulette';
+import language from '../languages.json';
 
-import "../style/movieDetails.scss";
+import '../style/movieDetails.scss';
 
 export class MovieDetails extends Component {
   state = {
@@ -19,7 +19,7 @@ export class MovieDetails extends Component {
     this.fetchData();
   }
   componentDidUpdate() {
-    console.log("UPDATE");
+    console.log('UPDATE');
     if (
       this.state.movie &&
       String(this.state.movie.id) !== this.props.match.params.movieId
@@ -65,13 +65,13 @@ export class MovieDetails extends Component {
     for (let i = 0; i < 10; i++) {
       ratingStars.push(
         <React.Fragment key={i}>
-          <label className="rating-label" htmlFor={"rating-" + (i + 1)}>
+          <label className="rating-label" htmlFor={'rating-' + (i + 1)}>
             <i className="far fa-star" />
           </label>
           <input
             className="rating-input"
             name="rating"
-            id={"rating-" + (i + 1)}
+            id={'rating-' + (i + 1)}
             value={i + 1}
             type="radio"
             onChange={this.handleFillStar}
@@ -83,81 +83,83 @@ export class MovieDetails extends Component {
     return (
       <React.Fragment>
         <div
-          className="movie-details"
+          className="transition-div"
           style={
             this.state.movieRouletteOpen
               ? {
-                  overflow: "hidden",
-                  transform: "scale(0)"
+                  overflow: 'hidden',
+                  transform: 'scale(0)'
                 }
               : null
           }
         >
-          <Loading height="100vh" isLoading={this.state.isLoading} />
+          <div className="movie-details">
+            <Loading height="100vh" isLoading={this.state.isLoading} />
 
-          {this.state.movie && (
-            <React.Fragment>
-              <h1 className="title">
-                {this.state.movie.title}{" "}
-                <span>({this.state.movie.release_date.slice(0, 4)})</span>
-              </h1>
-              <div className="backdrop-container">
-                <div className="img-container">
-                  <img
-                    src={
-                      "https://image.tmdb.org/t/p/original" +
-                      this.state.movie.backdrop_path
-                    }
-                    onLoad={this.imgLoaded}
-                    alt="NoImg"
-                  />
+            {this.state.movie && (
+              <React.Fragment>
+                <h1 className="title">
+                  {this.state.movie.title}{' '}
+                  <span>({this.state.movie.release_date.slice(0, 4)})</span>
+                </h1>
+                <div className="backdrop-container">
+                  <div className="img-container">
+                    <img
+                      src={
+                        'https://image.tmdb.org/t/p/original' +
+                        this.state.movie.backdrop_path
+                      }
+                      onLoad={this.imgLoaded}
+                      alt="NoImg"
+                    />
+                  </div>
+                  <div className="overview">
+                    <p
+                      style={
+                        this.state.movieRouletteOpen ? { opacity: '0' } : null
+                      }
+                    >
+                      {this.state.movie.overview}
+                    </p>
+                  </div>
                 </div>
-                <div className="overview">
-                  <p
-                    style={
-                      this.state.movieRouletteOpen ? { opacity: "0" } : null
-                    }
-                  >
-                    {this.state.movie.overview}
-                  </p>
+                <div
+                  className={
+                    this.state.isRated ? 'star-rating rated' : 'star-rating'
+                  }
+                >
+                  {ratingStars}
                 </div>
-              </div>
-              <div
-                className={
-                  this.state.isRated ? "star-rating rated" : "star-rating"
-                }
-              >
-                {ratingStars}
-              </div>
-              <p>
-                <span>Rating:</span> {this.state.movie.vote_average}
-              </p>
-              <p>
-                <span>Popularity:</span> {this.state.movie.popularity}
-              </p>
-              <div className="language">
-                <span>Language:</span>{" "}
-                {lang[0] ? (
-                  <img src={lang[0].flag} alt="noimg" />
-                ) : (
-                  this.state.movie.original_language
-                )}
-              </div>
-              <p className="production">
-                {" "}
-                <span>Production companies:</span>{" "}
-                {this.state.movie.production_companies
-                  .map(element => element.name)
-                  .join(", ")}
-              </p>
-              <button
-                className="random-btn btn"
-                onClick={this.handleMovieRoulette}
-              >
-                <i className="fas fa-random"></i>
-              </button>
-            </React.Fragment>
-          )}
+                <p>
+                  <span>Rating:</span> {this.state.movie.vote_average}
+                </p>
+                <p>
+                  <span>Popularity:</span> {this.state.movie.popularity}
+                </p>
+                <div className="language">
+                  <span>Language:</span>{' '}
+                  {lang[0] ? (
+                    <img src={lang[0].flag} alt="noimg" />
+                  ) : (
+                    this.state.movie.original_language
+                  )}
+                </div>
+                <p className="production">
+                  {' '}
+                  <span>Production companies:</span>{' '}
+                  {this.state.movie.production_companies
+                    .map(element => element.name)
+                    .join(', ')}
+                </p>
+                <button
+                  className="random-btn btn"
+                  onClick={this.handleMovieRoulette}
+                >
+                  <i className="fas fa-random"></i>
+                </button>
+              </React.Fragment>
+            )}
+          </div>
         </div>
         <MovieRoulette
           movieRouletteOpen={this.state.movieRouletteOpen}

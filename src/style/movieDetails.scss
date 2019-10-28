@@ -1,9 +1,12 @@
-@import "./definitions.scss";
+@import './definitions.scss';
+.transition-div {
+  transition: transform 0.2s;
+}
 .movie-details {
   width: 80%;
   margin: auto;
-  font-family: "Lato", sans-serif !important;
-  transition: transform 0.7s;
+  font-family: 'Lato', sans-serif !important;
+  transition: all 0.7s;
   transform: translateY(-39px);
   @include tablet {
     width: 100%;
@@ -16,14 +19,22 @@
     margin: auto;
     text-align: center;
     transform: translateY(-0.67rem);
-
+    pointer-events: none;
     @include tablet {
       position: absolute;
       font-size: 1.1rem;
-      top: 2rem;
       left: 50%;
       width: 68%;
       transform: translate(-50%, -50%);
+      animation: animateTitle 0.5s forwards;
+      @keyframes animateTitle {
+        from {
+          top: 4rem;
+        }
+        to {
+          top: 2rem;
+        }
+      }
     }
     span {
       font-size: 0.8rem;
@@ -100,7 +111,7 @@
       &::after,
       &::before {
         position: absolute;
-        content: " ";
+        content: ' ';
         width: 130%;
         bottom: -18px;
         z-index: -1;
@@ -187,7 +198,7 @@
       font-weight: bold;
       padding: 0.75rem 0.5rem 0.75rem 0;
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         width: 50%;
         background: color(secondary);

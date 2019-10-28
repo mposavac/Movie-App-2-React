@@ -1,9 +1,9 @@
-@import "./definitions.scss";
+@import './definitions.scss';
 
 header {
   -webkit-tap-highlight-color: transparent;
   position: relative;
-  font-family: "Lato", sans-serif !important;
+  font-family: 'Lato', sans-serif !important;
   text-align: center;
   height: 4rem;
   width: 100%;
@@ -46,8 +46,10 @@ header {
     z-index: 0;
     transition: 0.3s;
     visibility: hidden;
-    transform: translate(-2rem);
-    width: 0%;
+    @include mobile {
+      visibility: visible;
+    }
+    width: 100%;
     &.header-title {
       animation: playAnimationTitle 1s ease forwards;
       animation-delay: 3s;
@@ -65,10 +67,10 @@ header {
 main {
   padding-top: 1rem;
   overflow-x: hidden;
-  background: url("../triangle-mosaic.png") repeat center/cover;
+  background: url('../triangle-mosaic.png') repeat center/cover;
   background-attachment: fixed;
   @include mobile {
-    background: url("../triangle-mosaic.png") repeat;
+    background: url('../triangle-mosaic.png') repeat;
   }
   .container-grid {
     justify-items: center;
@@ -80,7 +82,7 @@ main {
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 1rem;
     grid-row-gap: 2.5rem;
-    font-family: "Lato", sans-serif !important;
+    font-family: 'Lato', sans-serif !important;
     transition: 0.5s;
     @include tablet {
       width: 90%;
@@ -117,7 +119,7 @@ main {
         }
         &::after {
           position: absolute;
-          content: " ";
+          content: ' ';
           bottom: 0;
           right: 0;
           height: 100px;

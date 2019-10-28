@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 $colors: (
   primary: #272727,
   secondary: #ffe400,
@@ -12,7 +12,6 @@ $radioSize: 22px;
   @return map-get($colors, $color-name);
 }
 
-//$desktop: 1210px;
 $tablet: 850px;
 $mobile: 480px;
 
@@ -53,7 +52,7 @@ $mobile: 480px;
   }
   @include mobile {
     margin-top: 1rem;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 }

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { Transition, animated } from "react-spring/renderprops";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Transition, animated } from 'react-spring/renderprops';
 
-import Loading from "./Loading";
-import "../style/movieRoulette.scss";
+import Loading from './Loading';
+import '../style/movieRoulette.scss';
 
 export class MovieRoulette extends Component {
   state = {
@@ -14,7 +14,7 @@ export class MovieRoulette extends Component {
 
   componentDidMount() {
     fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=5c9b7f26ee7ebb9e910bf1ec551bf09b&language=en-US"
+      'https://api.themoviedb.org/3/genre/movie/list?api_key=5c9b7f26ee7ebb9e910bf1ec551bf09b&language=en-US'
     )
       .then(res => res.json())
       .then(data => {
@@ -89,7 +89,7 @@ export class MovieRoulette extends Component {
                     ))}
                   </ul>
                 ) : (
-                  <Loading height={"100%"} />
+                  <Loading height={'100%'} />
                 )}
                 {this.state.genres && (
                   <button onClick={this.handleRandomMovie} className="roll-btn">
@@ -97,7 +97,7 @@ export class MovieRoulette extends Component {
                   </button>
                 )}
                 {this.state.randomMovie && (
-                  <Redirect to={"/movie/" + this.state.randomMovie.id} />
+                  <Redirect to={'/movie/' + this.state.randomMovie.id} />
                 )}
               </div>
             </animated.div>

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import "../style/index.scss";
+import '../style/index.scss';
 
 export class Header extends Component {
   render() {
@@ -10,9 +10,10 @@ export class Header extends Component {
         <Link to="/">
           <div
             className={
-              this.props.location.pathname.substring(1, 6) === "movie"
-                ? ""
-                : "logo-container"
+              this.props.location.pathname.substring(1, 6) === 'movie' ||
+              window.screen.width < 480
+                ? ''
+                : 'logo-container'
             }
           >
             <img
@@ -23,14 +24,15 @@ export class Header extends Component {
         </Link>
         <p
           className={
-            this.props.location.pathname.substring(1, 6) === "movie"
-              ? ""
-              : "header-title"
+            this.props.location.pathname.substring(1, 6) === 'movie' ||
+            window.screen.width < 480
+              ? ''
+              : 'header-title'
           }
         >
-          {this.props.location.pathname.substring(1, 6) === "movie"
-            ? ""
-            : "Movie Roulette"}
+          {this.props.location.pathname.substring(1, 6) === 'movie'
+            ? ''
+            : 'Movie Roulette'}
         </p>
       </header>
     );
