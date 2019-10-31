@@ -1,7 +1,7 @@
-import React from "react";
-import { animated, Transition } from "react-spring/renderprops";
+import React from 'react';
+import { animated, Transition } from 'react-spring/renderprops';
 
-import "../style/loading.scss";
+import '../style/loading.scss';
 export default function Loading(props) {
   return (
     <Transition

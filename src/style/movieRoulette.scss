@@ -1,4 +1,4 @@
-@import "./definitions.scss";
+@import './definitions.scss';
 
 .roulette-screen {
   z-index: 150;
@@ -10,7 +10,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Lato", sans-serif !important;
+  font-family: 'Lato', sans-serif !important;
+  box-shadow: 1px 1px 20px 3px color(secondary);
   @include tablet {
     width: 100%;
     height: 100%;
@@ -30,7 +31,12 @@
   p {
     color: color(radioBorder);
     margin: 0.5rem 0 0 2rem;
+    display: inline-block;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px color(secondary) solid;
     @include mobile {
+      display: block;
+      border: none;
       margin: 2rem 0 0 1rem;
     }
   }
@@ -50,7 +56,7 @@
       position: absolute;
       border-radius: 15px;
       border: 1px color(primary) solid;
-      background: color(thirdColor);
+      background: color(secondary);
       transition: 0.3s;
     }
     .right {
@@ -61,8 +67,8 @@
     }
     &::after {
       position: absolute;
-      content: "CLOSE";
-      color: color(secondary);
+      content: 'CLOSE';
+      color: color(thirdColor);
       bottom: 12px;
       left: -2px;
       font-size: 0.7rem;
@@ -72,11 +78,11 @@
     &:hover {
       .right {
         transform: rotate(45deg);
-        background: color(secondary);
+        background: color(thirdColor);
       }
       .left {
         transform: rotate(-45deg);
-        background: color(secondary);
+        background: color(thirdColor);
       }
       &::after {
         opacity: 1;
@@ -127,7 +133,7 @@
           }
           &::before,
           &::after {
-            content: " ";
+            content: ' ';
             width: $radioSize;
             height: $radioSize;
             display: block;
@@ -143,7 +149,7 @@
           }
           &::after {
             background: color(primary);
-            transform: scale(0.7);
+            transform: scale(0.9);
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
           }
         }
@@ -194,21 +200,21 @@
     display: block;
     margin: 2rem auto;
     background: color(primary);
-    color: color(thirdColor);
+    color: color(secondary);
     box-shadow: none;
     outline: none;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border-radius: 1rem;
     cursor: pointer;
-    border: 1px solid color(thirdColor);
+    border: 1px solid color(secondary);
     transition: 0.25s;
     -webkit-tap-highlight-color: transparent;
     &:hover,
     &:focus {
       box-shadow: 0 0.5rem 0.5rem -0.4rem color(secondary);
       transform: translateY(-0.25rem);
-      border-color: color(secondary);
+      border-color: color(thirdColor);
       color: color(secondary);
     }
     @include tablet {
@@ -258,7 +264,7 @@
       transform: rotate(90deg) translateY(calc(100% - 2px));
     }
     &::before {
-      content: " ";
+      content: ' ';
       position: absolute;
       width: 100%;
       height: 2px;

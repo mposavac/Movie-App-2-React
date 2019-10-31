@@ -47,7 +47,7 @@ export class MovieRoulette extends Component {
         native
         config={{ duration: 350 }}
         items={this.props.movieRouletteOpen}
-        from={{ opacity: 1 }}
+        from={{ opacity: 0 }}
         enter={{ opacity: 1 }}
         leave={{ opacity: 0 }}
       >
